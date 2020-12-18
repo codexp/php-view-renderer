@@ -1,6 +1,6 @@
 <?php
 
-class View
+class View implements ArrayAccess
 {
     /**
      * Global View variables
@@ -128,5 +128,25 @@ class View
             number_format($price, $decimals, $decimal_separator, $thousands_separator),
             htmlentities($currency)
         );
+    }
+
+    public function offsetExists($key)
+    {
+        return array_key_exists($key, $this->vars);
+    }
+
+    public function offsetGet($key)
+    {
+        return $this->vars[$key] ?? static::$globals[$key];
+    }
+
+    public function offsetSet($key, $value)
+    {
+        $this->vars[$key] = $value;
+    }
+
+    public function offsetUnset($key)
+    {
+        unset($this->vars[$key]);
     }
 }
