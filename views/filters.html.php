@@ -1,3 +1,5 @@
+<?php /** @var View $view */ ?>
+
 <h2>Filters</h2>
 
 <dl class="filters">

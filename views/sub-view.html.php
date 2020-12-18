@@ -1,3 +1,5 @@
+<?php /** @var View $view */ ?>
+
 <h2>Sub-View</h2>
 
 <p>Dear <?= $name ?? 'Pete' ?>, welcome to <?= $title ?>!</p>

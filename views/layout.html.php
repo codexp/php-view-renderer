@@ -1,3 +1,4 @@
+<?php /** @var View $view */ ?>
 <!doctype html>
 <html lang="en">
 <head>
