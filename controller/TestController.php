@@ -8,7 +8,7 @@ class TestController
 
         return $view->render([
             'content' => 'welcome',
-            'sub_content' => 'sub-view',
+            'sub_content' => 'parts/sub-view',
             'name' => 'Max Mustermann',
         ]);
     }

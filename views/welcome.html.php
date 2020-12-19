@@ -12,8 +12,8 @@
 <?php
     $view
         ->include($sub_content, ['only' => ['title' => 'Sub Template', 'test' => 'foo']])
-        ->include('filters')
-        ->include('rendering')
+        ->include('parts/filters')
+        ->include('parts/rendering')
 ?>
 
 <h3>Welcome View Dump</h3>
