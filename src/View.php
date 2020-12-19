@@ -149,4 +149,14 @@ class View implements ArrayAccess
     {
         unset($this->vars[$key]);
     }
+
+    public function __get($key)
+    {
+        return $this->vars[$key] ?? static::$globals[$key];
+    }
+
+    public function __set($key, $value)
+    {
+        $this->vars[$key] = $value;
+    }
 }
