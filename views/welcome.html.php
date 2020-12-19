@@ -11,7 +11,7 @@
 
 <?php
     $view
-        ->include($sub_content, ['only' => ['title' => 'Sub Template']])
+        ->include($sub_content, ['only' => ['title' => 'Sub Template', 'test' => 'foo']])
         ->include('filters')
 ?>
 
