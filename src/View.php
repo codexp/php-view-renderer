@@ -75,34 +75,58 @@ class View implements ArrayAccess
         self::$globals = $replace ? $globals : array_replace(self::$globals, $globals);
     }
 
-    public function offsetExists($key)
+    public function has(string $key): bool
     {
         return array_key_exists($key, $this->vars);
     }
 
-    public function offsetGet($key)
+    public function get(string $key)
     {
         return $this->vars[$key] ?? static::$globals[$key];
+    }
+
+    public function set(string $key, $value): self
+    {
+        $this->vars[$key] = $value;
+
+        return $this;
+    }
+
+    public function unset(string $key): self
+    {
+        unset($this->vars[$key]);
+
+        return $this;
+    }
+
+    public function offsetExists($key)
+    {
+        return $this->has($key);
+    }
+
+    public function offsetGet($key)
+    {
+        return $this->get($key);
     }
 
     public function offsetSet($key, $value)
     {
-        $this->vars[$key] = $value;
+        $this->set($key, $value);
     }
 
     public function offsetUnset($key)
     {
-        unset($this->vars[$key]);
+        $this->unset($key);
     }
 
     public function __get($key)
     {
-        return $this->vars[$key] ?? static::$globals[$key];
+        return $this->get($key);
     }
 
     public function __set($key, $value)
     {
-        $this->vars[$key] = $value;
+        $this->set($key, $value);
     }
 
     public function __invoke(array $vars = null, bool $mergeVariables = true): string
