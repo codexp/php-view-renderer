@@ -104,4 +104,9 @@ class View implements ArrayAccess
     {
         $this->vars[$key] = $value;
     }
+
+    public function __toString(): string
+    {
+        return $this->render();
+    }
 }
