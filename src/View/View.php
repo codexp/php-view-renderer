@@ -14,6 +14,7 @@ use View\Renderer;
  * - Support for view variables (inherited or restricted)
  * - Support for global variables (available in every view, even in restricted views)
  * - Chainable filters (can be disabled by removing FilterSupport trait)
+ * - Resolvable custom View classes (requires registered resolver)
  */
 class View extends Renderer
 {

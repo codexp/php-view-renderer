@@ -10,6 +10,7 @@ So far following features have been implemented:
 * Global view variables (always available)
 * Include other views inside a view (new variables can be passed through)
 * Chainable view filters
+* Resolvable custom View classes
 
 ## Test
 
