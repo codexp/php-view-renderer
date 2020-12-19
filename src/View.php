@@ -1,6 +1,7 @@
 <?php
 
 use View\FilterSupport;
+use View\VariableAccess;
 
 /**
  * PHP View renderer
@@ -12,40 +13,18 @@ use View\FilterSupport;
  * - Support for global variables (available in every view, even in restricted views)
  * - Chainable filters (can be disabled by removing FilterSupport trait)
  */
-class View implements ArrayAccess
+class View extends VariableAccess
 {
     use FilterSupport;
-
-    /**
-     * Global View variables
-     */
-    protected static array $globals = [];
 
     /**
      * View name
      */
     protected string $view;
 
-    /**
-     * Current View Variables
-     */
-    protected array $vars = [];
-
     public function __construct(string $view)
     {
         $this->view = $view;
-    }
-
-    public function getVariables(bool $includeGlobals = false): array
-    {
-        return $includeGlobals ? array_replace(self::$globals, $this->vars) : $this->vars;
-    }
-
-    public function setVariables(array $vars, bool $mergeVariables = true): self
-    {
-        $this->vars = $mergeVariables ? array_replace($this->vars, $vars) : $vars;
-
-        return $this;
     }
 
     public function render(array $vars = null, bool $mergeVariables = true)
@@ -90,65 +69,6 @@ class View implements ArrayAccess
         echo $content;
 
         return $this;
-    }
-
-    public static function setGlobals(array $globals, bool $replace = false)
-    {
-        self::$globals = $replace ? $globals : array_replace(self::$globals, $globals);
-    }
-
-    public function has(string $key): bool
-    {
-        return array_key_exists($key, $this->vars);
-    }
-
-    public function get(string $key)
-    {
-        return $this->vars[$key] ?? static::$globals[$key];
-    }
-
-    public function set(string $key, $value): self
-    {
-        $this->vars[$key] = $value;
-
-        return $this;
-    }
-
-    public function unset(string $key): self
-    {
-        unset($this->vars[$key]);
-
-        return $this;
-    }
-
-    public function offsetExists($key)
-    {
-        return $this->has($key);
-    }
-
-    public function offsetGet($key)
-    {
-        return $this->get($key);
-    }
-
-    public function offsetSet($key, $value)
-    {
-        $this->set($key, $value);
-    }
-
-    public function offsetUnset($key)
-    {
-        $this->unset($key);
-    }
-
-    public function __get($key)
-    {
-        return $this->get($key);
-    }
-
-    public function __set($key, $value)
-    {
-        $this->set($key, $value);
     }
 
     public function __invoke(array $vars = null, bool $mergeVariables = true): string
