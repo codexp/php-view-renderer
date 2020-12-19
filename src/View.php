@@ -105,6 +105,11 @@ class View implements ArrayAccess
         $this->vars[$key] = $value;
     }
 
+    public function __invoke(array $vars = null, bool $mergeVariables = true): string
+    {
+        return $this->render($vars, $mergeVariables);
+    }
+
     public function __toString(): string
     {
         return $this->render();
