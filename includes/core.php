@@ -1,11 +1,16 @@
 <?php
 
+set_include_path(implode(PATH_SEPARATOR, [
+    get_include_path(),
+    './src',
+    './controller',
+]));
+
 spl_autoload_register(function ($class) {
-    $classFile = 'src/' . $class . '.php';
+    $classFile = strtr($class, ['\\' => '/']) . '.php';
 
-    if (!is_file($classFile)) {
-        $classFile = 'controller/' . $class . '.php';
+    $filePath = stream_resolve_include_path($classFile);
+    if ($filePath !== false) {
+        require $classFile;
     }
-
-    require $classFile;
 });
