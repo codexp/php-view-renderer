@@ -13,6 +13,7 @@
     $view
         ->include($sub_content, ['only' => ['title' => 'Sub Template', 'test' => 'foo']])
         ->include('filters')
+        ->include('rendering')
 ?>
 
 <h3>Welcome View Dump</h3>
