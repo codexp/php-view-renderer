@@ -19,8 +19,10 @@ class View extends Renderer
 {
     use FilterSupport;
 
-    public function __construct(string $view)
+    public function __construct(string $view = null)
     {
-        $this->view = $view;
+        if (isset($view)) {
+            $this->view = $view;
+        }
     }
 }
