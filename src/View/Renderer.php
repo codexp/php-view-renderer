@@ -2,7 +2,7 @@
 
 namespace View;
 
-class Renderer extends VariableAccess
+abstract class Renderer extends VariableAccess
 {
     /**
      * View name
