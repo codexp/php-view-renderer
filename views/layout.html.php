@@ -1,4 +1,4 @@
-<?php /** @var View\View $view */ ?>
+<?php /** @var \ViewModel\Layout $view */ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +9,6 @@
     <title><?= $app_title ?></title>
 </head>
 <body>
-<?php $view->include($content) ?>
+<?php $view->include($view->content) ?>
 </body>
 </html>
