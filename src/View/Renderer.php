@@ -9,6 +9,10 @@ abstract class Renderer extends VariableAccess
      */
     protected string $view;
 
+    private $cache = [
+        'view_class' => [],
+    ];
+
     public function render(array $vars = null, bool $mergeVariables = true)
     {
         if (isset($vars)) {
@@ -40,7 +44,14 @@ abstract class Renderer extends VariableAccess
         $only = isset($vars['only']) && is_array($vars['only']) && count($vars) === 1;
         $vars = $only ? $vars['only'] : array_replace($this->vars, $vars);
 
-        $content = (new View($view))
+        $ViewClass = $this->resolveViewClass($view);
+        if ($ViewClass !== null) {
+            $instance = new $ViewClass();
+        } else {
+            $instance = new View($view);
+        }
+
+        $content = $instance
             ->render($vars)
         ;
 
@@ -61,5 +72,20 @@ abstract class Renderer extends VariableAccess
     public function __toString(): string
     {
         return $this->render();
+    }
+
+    protected function resolveViewClass(string $view)
+    {
+        if (array_key_exists($view, $this->cache['view_class'])) {
+            return $this->cache['view_class'][$view];
+        }
+
+        if (class_exists('\\ViewModel\\' . $view)) {
+            $this->cache['view_class'][$view] = '\\ViewModel\\' . $view;
+        } else {
+            $this->cache['view_class'][$view] = null;
+        }
+
+        return $this->cache['view_class'][$view];
     }
 }
