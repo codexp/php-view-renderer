@@ -9,7 +9,7 @@ class TestController
         $layout = new Layout();
 
         return $layout->render([
-            'content' => 'WelcomePage',
+            'content' => '@WelcomePage',
             'sub_content' => 'parts/sub-view',
             'name' => 'Max Mustermann',
         ]);

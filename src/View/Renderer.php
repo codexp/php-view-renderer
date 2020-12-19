@@ -9,9 +9,10 @@ abstract class Renderer extends VariableAccess
      */
     protected string $view;
 
-    private $cache = [
-        'view_class' => [],
-    ];
+    /**
+     * @var ViewClassResolver[]
+     */
+    private static array $viewClassResolver = [];
 
     public function render(array $vars = null, bool $mergeVariables = true)
     {
@@ -44,7 +45,7 @@ abstract class Renderer extends VariableAccess
         $only = isset($vars['only']) && is_array($vars['only']) && count($vars) === 1;
         $vars = $only ? $vars['only'] : array_replace($this->vars, $vars);
 
-        $ViewClass = $this->resolveViewClass($view);
+        $ViewClass = self::resolveViewClass($view);
         if ($ViewClass !== null) {
             $instance = new $ViewClass();
         } else {
@@ -74,18 +75,20 @@ abstract class Renderer extends VariableAccess
         return $this->render();
     }
 
-    protected function resolveViewClass(string $view)
+    public static function registerViewClassResolver(ViewClassResolver $resolver)
     {
-        if (array_key_exists($view, $this->cache['view_class'])) {
-            return $this->cache['view_class'][$view];
+        self::$viewClassResolver[] = $resolver;
+    }
+
+    protected static function resolveViewClass(string $view)
+    {
+        foreach (static::$viewClassResolver as $resolver) {
+            $class = $resolver->resolve($view);
+            if ($class !== null) {
+                return $class;
+            }
         }
 
-        if (class_exists('\\ViewModel\\' . $view)) {
-            $this->cache['view_class'][$view] = '\\ViewModel\\' . $view;
-        } else {
-            $this->cache['view_class'][$view] = null;
-        }
-
-        return $this->cache['view_class'][$view];
+        return null;
     }
 }

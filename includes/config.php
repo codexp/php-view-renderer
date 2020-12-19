@@ -9,3 +9,5 @@ View::setGlobals([
 View::registerFilter('camelCase', function ($v) {
     return preg_replace('/[\s]+/', '', ucwords($v));
 });
+
+View::registerViewClassResolver(new \ViewModel\Resolver());
