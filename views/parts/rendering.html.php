@@ -1,4 +1,4 @@
-<?php /** @var View $view */ ?>
+<?php /** @var View\View $view */ ?>
 
 <h2>Rendering</h2>
 
@@ -13,9 +13,9 @@
 
 <h3>By echoing a view instance</h3>
 
-<?php $myView = new View('parts/included') ?>
+<?php $myView = new View\View('parts/included') ?>
 
-<pre><code>&lt;?php $myView = new View('parts/included') ?&gt;
+<pre><code>&lt;?php $myView = new View\View('parts/included') ?&gt;
 &lt;?= $myView ?&gt;
 </code></pre>
 
@@ -23,7 +23,7 @@
 
 <h3>By invoking a view instance</h3>
 
-<pre><code>&lt;?php $myView = new View('parts/included') ?&gt;
+<pre><code>&lt;?php $myView = new View\View('parts/included') ?&gt;
 &lt;?= $myView(['foo' => 'bar']) ?&gt;
 </code></pre>
 

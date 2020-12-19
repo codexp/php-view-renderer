@@ -1,5 +1,7 @@
 <?php
 
+use View\View;
+
 View::setGlobals([
     'app_title' => 'PHP View renderer example',
 ]);

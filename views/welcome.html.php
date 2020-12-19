@@ -1,4 +1,4 @@
-<?php /** @var View $view */ ?>
+<?php /** @var View\View $view */ ?>
 
 <h1>Hello World</h1>
 

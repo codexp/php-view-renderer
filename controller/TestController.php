@@ -1,5 +1,7 @@
 <?php
 
+use View\View;
+
 class TestController
 {
     public function testAction(): string

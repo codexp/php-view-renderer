@@ -1,5 +1,7 @@
 <?php
 
+namespace View;
+
 use View\FilterSupport;
 use View\Renderer;
 
