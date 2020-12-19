@@ -41,10 +41,17 @@ class View implements ArrayAccess
         return $includeGlobals ? array_replace(self::$globals, $this->vars) : $this->vars;
     }
 
+    public function setVariables(array $vars, bool $mergeVariables = true): self
+    {
+        $this->vars = $mergeVariables ? array_replace($this->vars, $vars) : $vars;
+
+        return $this;
+    }
+
     public function render(array $vars = null, bool $mergeVariables = true)
     {
         if (isset($vars)) {
-            $this->vars = $mergeVariables ? array_replace($this->vars, $vars) : $vars;
+            $this->setVariables($vars, $mergeVariables);
         }
 
         extract(array_replace(self::$globals, $this->vars));
