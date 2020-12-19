@@ -1,9 +1,9 @@
-<?php /** @var View\View $view */ ?>
+<?php /** @var \ViewModel\WelcomePage $view */ ?>
 
 <h1>Hello World</h1>
 
 <p>
-    Hi, <?= $name ?>
+    Hi, <?= $view->name ?>
 </p>
 
 <h3>Welcome-View Variables</h3>
@@ -11,7 +11,7 @@
 
 <?php
     $view
-        ->include($sub_content, ['only' => ['title' => 'Sub Template', 'test' => 'foo']])
+        ->include($view->sub_content, ['only' => ['title' => 'Sub Template', 'test' => 'foo']])
         ->include('parts/filters')
         ->include('parts/rendering')
 ?>
