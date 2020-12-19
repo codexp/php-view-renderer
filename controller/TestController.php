@@ -1,14 +1,14 @@
 <?php
 
-use View\View;
+use ViewModel\Layout;
 
 class TestController
 {
     public function testAction(): string
     {
-        $view = new View('layout');
+        $layout = new Layout();
 
-        return $view->render([
+        return $layout->render([
             'content' => 'welcome',
             'sub_content' => 'parts/sub-view',
             'name' => 'Max Mustermann',

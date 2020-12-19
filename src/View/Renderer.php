@@ -40,7 +40,7 @@ abstract class Renderer extends VariableAccess
         $only = isset($vars['only']) && is_array($vars['only']) && count($vars) === 1;
         $vars = $only ? $vars['only'] : array_replace($this->vars, $vars);
 
-        $content = (new static($view))
+        $content = (new View($view))
             ->render($vars)
         ;
 
