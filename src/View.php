@@ -65,14 +65,29 @@ class View implements ArrayAccess
         return $contents;
     }
 
-    public function include(string $view, array $vars = []): self
+    /**
+     * Include (render) another view
+     *
+     * @param string $view view template name
+     * @param array $vars view variables
+     * @param bool $return return rendered contents if true, output otherwise
+     *
+     * @return $this|string
+     */
+    public function include(string $view, array $vars = [], bool $return = false)
     {
         $only = isset($vars['only']) && is_array($vars['only']) && count($vars) === 1;
         $vars = $only ? $vars['only'] : array_replace($this->vars, $vars);
 
-        echo (new View($view))
+        $content = (new View($view))
             ->render($vars)
         ;
+
+        if ($return) {
+            return $content;
+        }
+
+        echo $content;
 
         return $this;
     }
